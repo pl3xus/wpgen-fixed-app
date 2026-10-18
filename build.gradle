@@ -2,6 +2,7 @@
 
 buildscript {
     repositories {
+        google() // Added to find modern Android components
         jcenter()
     }
     dependencies {
@@ -14,6 +15,11 @@ buildscript {
 
 allprojects {
     repositories {
+        google() // Added to ensure layout modules download successfully
         jcenter()
     }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
