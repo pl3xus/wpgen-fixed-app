@@ -1,0 +1,27 @@
+name: Compile WPGen APK
+on: [workflow_dispatch] # This lets you press a button to manually start the build
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java Development Kit
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17' # Modern Java needed to compile SDK 34 code
+
+      - name: Grant Execute Permission for Gradle
+        run: chmod +x gradlew
+
+      - name: Build Secure Android APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload Compiled App File
+        uses: actions/upload-artifact@v4
+        with:
+          name: wpgen-fixed-app
+          path: app/build/outputs/apk/debug/app-debug.apk
