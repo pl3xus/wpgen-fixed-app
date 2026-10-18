@@ -8,21 +8,27 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Java Development Kit
+      - name: Set up Java 17 for SDK Manager Tools
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '8' # Required for legacy Gradle 2.2.1 startup; Android SDK handles the modern compilation in background.
+          java-version: '17'
 
       - name: Install Missing Android 28 SDK Components
         run: |
           ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-28" "build-tools;28.0.3"
 
+      - name: Set up Secondary Java 8 Environment
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '8'
+
       - name: Grant Execute Permission for Gradle
         run: chmod +x gradlew
 
-      - name: Build Secure Android APK
-        run: ./gradlew assembleDebug
+      - name: Build Secure Android APK using Java 8 Target Path
+        run: ./gradlew assembleDebug -Dorg.gradle.java.home=$JAVA_HOME
 
       - name: Upload Compiled App File
         uses: actions/upload-artifact@v4
