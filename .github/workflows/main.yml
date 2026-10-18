@@ -1,5 +1,5 @@
 name: Compile WPGen APK
-on: [workflow_dispatch] # This lets you press a button to manually start the build
+on: [workflow_dispatch]
 
 jobs:
   build:
@@ -14,6 +14,9 @@ jobs:
           distribution: 'zulu'
           java-version: '8' # Required for legacy Gradle 2.2.1 startup; Android SDK handles the modern compilation in background.
 
+      - name: Install Missing Android 28 SDK Components
+        run: |
+          ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-28" "build-tools;28.0.3"
 
       - name: Grant Execute Permission for Gradle
         run: chmod +x gradlew
