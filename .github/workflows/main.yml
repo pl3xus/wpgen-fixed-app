@@ -12,7 +12,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17' # Modern Java needed to compile SDK 34 code
+          java-version: '8' # Required for legacy Gradle 2.2.1 startup; Android SDK handles the modern compilation in background.
+
 
       - name: Grant Execute Permission for Gradle
         run: chmod +x gradlew
