@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion "34.0.0" // Put back to satisfy the 2015 validation check
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "net.glsk.wpgen"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 28
         versionCode 13
         versionName "1.3-fixed"
     }
@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    // Swapped "implementation" to "compile" to match the 2015 syntax rules
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:support-v4:28.0.0'
+    compile 'com.android.support:appcompat-v7:28.0.0'
 }
