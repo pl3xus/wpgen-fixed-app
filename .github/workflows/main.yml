@@ -17,8 +17,7 @@ jobs:
       - name: Setup Android SDK 25 and Auto-Accept Licenses
         uses: android-actions/setup-android@v3
         with:
-          api-level: 25
-          build-tools: 25.0.3
+          packages: platform-tools platforms;android-25 build-tools;25.0.3
 
       - name: Set up Java 8 for Legacy Gradle Execution
         uses: actions/setup-java@v4
