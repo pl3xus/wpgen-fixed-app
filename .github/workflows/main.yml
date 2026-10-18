@@ -8,17 +8,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Java 17 for SDK Manager Tools
+      - name: Set up Java 17 for SDK Setup
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install Missing Android 28 SDK Components
-        run: |
-          ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-28" "build-tools;28.0.3"
+      - name: Setup Android SDK 25 and Auto-Accept Licenses
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 25
+          build-tools: 25.0.3
 
-      - name: Set up Secondary Java 8 Environment
+      - name: Set up Java 8 for Legacy Gradle Execution
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
